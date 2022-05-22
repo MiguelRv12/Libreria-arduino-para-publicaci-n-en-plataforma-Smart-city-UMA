@@ -2,41 +2,35 @@
   Fiware.h 
   Miguel Rodriguez
 */
-#include “Arduino.h”
+
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 
 
-
-
-
-class Fiware : public Print {
-
-private:
-
-const char* apikey;
-const char* server;
-const char* port;
-const char* device_ID;
-const char* Body;
-public:
-
-boolean	ultralightSend(const char* apikey,const char* server,const char* port,const char* device_ID,const char* body);
-
-
-
-
+class Fiware {
+	private:
+	int _httpCode;
+	String _URL;
+	String _port;
+	String _Token;
+	String _ID;
+	public:
+		Fiware();
+		void SetUl2Server(String URL,String port,String Token,String ID);
+		void ultralightSend(String body);
+		
 };
-class UL2 : public Print {
-
-private:
-
-public:
-
-const char* Temp;
-const char* Hum;
+class UL2Payload {
+	private:
+	String _UL2message;
+	public:
+		UL2Payload();
+		void add(String field, String value);
+		void add(String field, int value);
+		void add(String field, double value);
+		void add(String field, boolean value);
+		void add(String field, char value);
+		String GetString();
+		
 };
-/*
-objeto_FW mifiware(server, port, device, key);
-miobjeto
-miobjeto.add
-mifiware.send
-*/

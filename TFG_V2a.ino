@@ -9,7 +9,7 @@ const char* ssid = "Miguelwifi";
 const char* password = "puessipuessi";
 const char* FIWARE_apikey = "xraet1pdnumsjohoa0ybu5uoc";
 const char* FIWARE_server = "150.214.58.178";
-const char* FIWARE_port= "7896";
+int FIWARE_port= 7896;
 const char* FIWARE_device_ID= "D_HC_prueba";
 
 // cadenas para topics e ID
@@ -33,7 +33,7 @@ void conecta_wifi() {
   }
   Serial.printf("\nWiFi connected, IP address: %s\n", WiFi.localIP().toString().c_str());
 }
-Fiware fiware;
+fiwareULClient  fiware;
 UL2Payload Payload;
 //-----------------------------------------------------
 //     SETUP
@@ -70,8 +70,8 @@ void loop() {
   unsigned long ahora = millis();
   if (ahora - ultimo_mensaje >= 30000) {
     ultimo_mensaje = ahora;
-    fiware.SetUl2Server(FIWARE_server,FIWARE_port,FIWARE_apikey,FIWARE_device_ID);
-    fiware.ultralightSend(UL2);
+    fiware.setServer(FIWARE_server,FIWARE_port,FIWARE_apikey,FIWARE_device_ID);
+    fiware.publish(UL2);
     digitalWrite(LED2, LOW); // enciende el led al enviar mensaje
   }
   if (digitalRead(LED2)==LOW && ahora-ultimo_mensaje>=100) {

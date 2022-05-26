@@ -13,26 +13,31 @@
 #define FW_PUBLISH_OK  0
 #define FW_NO_SETUP  -1
 
+
+#define get_command std::function<void(String)> callback
+
+
 class fiwareULClient{
 	private:
 	int _httpCode;
-	String _URL;
-	int _port;
-	String _Token;
-	String _ID;
 	int _state;
 	int _polltime;
+	int _port;
+	String _URL;
+	String _Token;
+	String _ID;
 	String _payload;
-	boolean _publishPoll;
 	String _command;
 	unsigned long _now;
+	boolean _publishPoll;
+	get_command;
 	public:
 		fiwareULClient ();
 		void setServer(String URL,int port,String Token,String ID);
 		int publish(String body);
-		setCallback(get_command);
-		setPoolInterval(int polltime);
-		setPoolOnPublish(boolean publishPoll);
+		void setCallback(get_command);
+		void setPoolInterval(int polltime);
+		void setPoolOnPublish(boolean publishPoll);
 };
 class UL2Payload {
 	private:

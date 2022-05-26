@@ -58,12 +58,12 @@ int fiwareULClient::publish(String body){
   }
 }
 
-fiwareULClient::setCallback(get_command){
+void fiwareULClient::setCallback(get_command){
 	while(_publishPoll = false){
 		unsigned long last_msg=0;
-		now=millis();
-		if(now - last_msg >=_polltime){
-			last_msg = now;
+		_now=millis();
+		if(_now - last_msg >=_polltime){
+			last_msg = _now;
  			// Configure URL and headers
   			http.begin("http://" + _URL + ":" + _port + "/iot/d?k=" + _Token + "&i=" + _ID + "&getCmd=1");
   			http.addHeader("Content-Type", "text/plain");
@@ -80,12 +80,14 @@ fiwareULClient::setCallback(get_command){
 		
   			//Close connection
   			http.end(); 
-  			StringTokenizer tokens(_payload,String("#"));
+  			StringTokenizer payload(_payload,String("#"));
   			do
 			{
-    				_command=nextToken();
-				get_command(_command)
-			} while (hasNext() == True);
+    				_command=payload.nextToken();
+				callback(_command);
+				http.begin("http://" + _URL + ":" + _port + "/iot/d?k=" + _Token + "&i=" + _ID + _command + "|OK");
+				http.end();
+			} while (payload.hasNext() == true);
 			
 		}
   	}

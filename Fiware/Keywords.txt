@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For Fiware
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+fiwareULClient	KEYWORD1
+UL2Payload 	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+ultralightSend 		KEYWORD2
+setServer		KEYWORD2
+publish			KEYWORD2
+setCallback		KEYWORD2
+setPoolInterval		KEYWORD2
+setPoolOnPublish	KEYWORD2
+add			KEYWORD2
+cleanPayload		KEYWORD2
+GetString		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
